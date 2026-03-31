@@ -1,0 +1,1253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HEC Competency Test</title>
+<style>
+  body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; color: #333; margin: 0; padding: 20px; }
+  .container { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+  h1 { text-align: center; color: #2c3e50; }
+  .question { margin-bottom: 25px; padding-bottom: 20px; border-bottom: 1px solid #eee; }
+  .q-title { font-weight: bold; font-size: 1.1em; margin-bottom: 10px; }
+  .options label { display: block; margin-bottom: 8px; cursor: pointer; padding: 12px; border-radius: 4px; transition: background 0.2s; background-color: #fcfcfc; border: 1px solid #eee; }
+  .options label:hover { background-color: #f0f0f0; border-color: #ccc; }
+  .submit-btn { display: block; width: 100%; padding: 15px; background-color: #3498db; color: white; font-size: 18px; font-weight: bold; border: none; border-radius: 5px; cursor: pointer; transition: background 0.3s; }
+  .submit-btn:hover { background-color: #2980b9; }
+  #results { margin-top: 30px; text-align: center; display: none; padding: 20px; background: #fff; border-radius: 8px; border: 2px solid #27ae60; }
+  .score { font-size: 3em; font-weight: bold; color: #27ae60; margin: 10px 0; }
+  .feedback { margin-top: 10px; font-size: 1em; padding: 15px; border-radius: 5px;}
+  .feedback.correct { background-color: #e8f8f5; border: 1px solid #27ae60; color: #27ae60;}
+  .feedback.wrong { background-color: #fdedec; border: 1px solid #c0392b; color: #c0392b;}
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>📝 HEC National Skills Competency Test</h1>
+    <p style="text-align:center; margin-bottom:30px; color:#666;">Test your knowledge out of 100 questions. Select an answer for each question and click Submit at the very bottom.</p>
+    
+    <div id="quiz-container"></div>
+    <button class="submit-btn" onclick="submitQuiz()">Submit Test & Get Score</button>
+    
+    <div id="results">
+        <h2>Your Final Score</h2>
+        <div class="score" id="score-text"></div>
+        <p id="score-msg" style="font-size: 1.2em; font-weight: 500;"></p>
+        <button class="submit-btn" style="background-color:#7f8c8d; margin-top: 20px;" onclick="location.reload()">Retake Test</button>
+    </div>
+</div>
+
+<script>
+const quizData = [
+  {
+    "id": 1,
+    "question": "Which layer of the OSI model determines the routing of packets from the source to the destination?",
+    "options": [
+      "A) Transport Layer",
+      "B) Network Layer",
+      "C) Data Link Layer",
+      "D) Application Layer"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 2,
+    "question": "In Data Communication, which transmission mode allows data to travel in both directions simultaneously?",
+    "options": [
+      "A) Simplex",
+      "B) Half-Duplex",
+      "C) Full-Duplex",
+      "D) Multiplex"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 3,
+    "question": "Which protocol is primarily used for assigning dynamic IP addresses to devices on a network?",
+    "options": [
+      "A) DNS",
+      "B) DHCP",
+      "C) ARP",
+      "D) ICMP"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 4,
+    "question": "A MAC Address operates at which layer of the OSI reference model?",
+    "options": [
+      "A) Physical Layer",
+      "B) Data Link Layer",
+      "C) Network Layer",
+      "D) Session Layer"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 5,
+    "question": "In Cloud Computing, which service model provides the consumer with the capability to deploy provider-supported applications onto the cloud infrastructure (e.g., Heroku)?",
+    "options": [
+      "A) IaaS",
+      "B) PaaS",
+      "C) SaaS",
+      "D) DaaS"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 6,
+    "question": "Which wireless networking standard is known as Wi-Fi 6?",
+    "options": [
+      "A) 802.11n",
+      "B) 802.11ac",
+      "C) 802.11ax",
+      "D) 802.11g"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 7,
+    "question": "What is the primary purpose of a firewall in network security?",
+    "options": [
+      "A) To speed up internet traffic",
+      "B) To act as a dynamic router",
+      "C) To filter incoming and outgoing traffic based on predetermined rules",
+      "D) To convert IP addresses to domain names"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 8,
+    "question": "Next Generation Networks (NGN) are primarily characterized by the consolidation of multiple networks into a single unified network utilizing which protocol?",
+    "options": [
+      "A) ATM",
+      "B) IP",
+      "C) Frame Relay",
+      "D) SS7"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 9,
+    "question": "Which TCP/IP layer handles the establishment of a connection (like the Three-Way Handshake)?",
+    "options": [
+      "A) Application",
+      "B) Transport",
+      "C) Internet",
+      "D) Link"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 10,
+    "question": "In a Software-Defined Network (SDN), the control plane is physically separated from which other plane?",
+    "options": [
+      "A) Application Plane",
+      "B) Data Plane",
+      "C) Routing Plane",
+      "D) Security Plane"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 11,
+    "question": "Which data typing approach is used by Python?",
+    "options": [
+      "A) Static and Explicit",
+      "B) Dynamic and Implicit",
+      "C) Static and Implicit",
+      "D) Dynamic and Explicit"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 12,
+    "question": "What does an 'Interface' in Java provide?",
+    "options": [
+      "A) Multiple Inheritance of Implementation",
+      "B) Abstract Data Type declarations with method signatures but no definitions",
+      "C) Encapsulation of private variables only",
+      "D) Automatic memory garbage collection"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 13,
+    "question": "In Object-Oriented Programming, what concept describes a child class providing a specific implementation of a method already provided by its parent class?",
+    "options": [
+      "A) Method Overloading",
+      "B) Method Overriding",
+      "C) Encapsulation",
+      "D) Data Abstraction"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 14,
+    "question": "In C++, which operator is used to dynamic allocate memory?",
+    "options": [
+      "A) malloc",
+      "B) calloc",
+      "C) new",
+      "D) allocate"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 15,
+    "question": "In Python, what is the output of `3 * 'A'`?",
+    "options": [
+      "A) 3A",
+      "B) AAA",
+      "C) Error",
+      "D) A A A"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 16,
+    "question": "Which of the following data structures in Python is unordered and unindexed?",
+    "options": [
+      "A) List",
+      "B) Tuple",
+      "C) Set",
+      "D) Array"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 17,
+    "question": "In Java, what block is used to execute code regardless of whether an exception is caught or not?",
+    "options": [
+      "A) try",
+      "B) catch",
+      "C) throws",
+      "D) finally"
+    ],
+    "answer": 3
+  },
+  {
+    "id": 18,
+    "question": "What is the main purpose of Multithreading (Concurrency/Parallelism)?",
+    "options": [
+      "A) To encrypt data",
+      "B) To execute multiple parts of a program simultaneously to maximize CPU utilization",
+      "C) To prevent memory leaks",
+      "D) To simplify code compilation"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 19,
+    "question": "Which process involves breaking down a larger software program into independent, interchangeable components?",
+    "options": [
+      "A) Encapsulation",
+      "B) Modularity",
+      "C) Recursion",
+      "D) Polymorphism"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 20,
+    "question": "When discussing Big O Notation, what does it primarily measure?",
+    "options": [
+      "A) Code readability",
+      "B) Compiler execution time",
+      "C) Time and Space Complexity of an algorithm",
+      "D) Memory allocation errors"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 21,
+    "question": "Which data structure operates on the Last In First Out (LIFO) principle?",
+    "options": [
+      "A) Queue",
+      "B) Array",
+      "C) Stack",
+      "D) Linked List"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 22,
+    "question": "In a binary search tree (BST), what traversal method retrieves the elements in sorted (ascending) order?",
+    "options": [
+      "A) Pre-order",
+      "B) In-order",
+      "C) Post-order",
+      "D) Level-order"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 23,
+    "question": "What is the worst-case time complexity of the QuickSort algorithm?",
+    "options": [
+      "A) O(n)",
+      "B) O(log n)",
+      "C) O(n log n)",
+      "D) O(n^2)"
+    ],
+    "answer": 3
+  },
+  {
+    "id": 24,
+    "question": "A graph in which every pair of distinct vertices is connected by a unique edge is called a/an:",
+    "options": [
+      "A) Directed Graph",
+      "B) Complete Graph",
+      "C) Bipartite Graph",
+      "D) Multi-graph"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 25,
+    "question": "Which searching algorithm is optimal for finding a target element in a pre-sorted array?",
+    "options": [
+      "A) Linear Search",
+      "B) Binary Search",
+      "C) Depth First Search",
+      "D) Breadth First Search"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 26,
+    "question": "A hash function aims to map keys to an array index. What occurs when two different keys map to the same index?",
+    "options": [
+      "A) Segmentation Fault",
+      "B) Memory Leak",
+      "C) Hash Collision",
+      "D) Key Override"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 27,
+    "question": "Dijkstra\u2019s Algorithm is primarily used for which of the following?",
+    "options": [
+      "A) Sorting an array optimally",
+      "B) Finding the shortest path in a graph",
+      "C) Spanning a tree to its maximum depth",
+      "D) String pattern matching"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 28,
+    "question": "Which of the following linear data structures is best suited for scenarios requiring constant time O(1) insertions and deletions at both ends?",
+    "options": [
+      "A) Singly Linked List",
+      "B) Doubly Linked List",
+      "C) Array",
+      "D) Hash Table"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 29,
+    "question": "Which algorithmic paradigm does the Merge Sort algorithm utilize?",
+    "options": [
+      "A) Greedy Algorithm",
+      "B) Dynamic Programming",
+      "C) Divide and Conquer",
+      "D) Backtracking"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 30,
+    "question": "A Min-Heap is a complete binary tree where the value of a parent node is:",
+    "options": [
+      "A) Greater than its children",
+      "B) Less than or equal to its children",
+      "C) Equal to the sibling nodes",
+      "D) Always null"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 31,
+    "question": "Which component of the Operating System acts as the core and performs fundamental tasks like memory and CPU management?",
+    "options": [
+      "A) Driver",
+      "B) Shell",
+      "C) Kernel",
+      "D) Compiler"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 32,
+    "question": "In Process Management, what state refers to a process that is waiting to be assigned to a processor?",
+    "options": [
+      "A) Running",
+      "B) Waiting",
+      "C) Ready",
+      "D) Terminated"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 33,
+    "question": "A situation where two or more processes are unable to proceed because each is waiting for the other to release a resource is called:",
+    "options": [
+      "A) Starvation",
+      "B) Race Condition",
+      "C) Deadlock",
+      "D) Thrashing"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 34,
+    "question": "Which CPU scheduling algorithm allocates the CPU to the process that requests it first?",
+    "options": [
+      "A) Round Robin (RR)",
+      "B) Shortest Job First (SJF)",
+      "C) Priority Scheduling",
+      "D) First-Come, First-Served (FCFS)"
+    ],
+    "answer": 3
+  },
+  {
+    "id": 35,
+    "question": "What is Thrashing in the context of OS memory management?",
+    "options": [
+      "A) Rapid deletion of files",
+      "B) High amount of paging operations causing CPU performance degradation",
+      "C) Encrypting swapped memory",
+      "D) Flushing the RAM buffer to disk safely"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 36,
+    "question": "Which software process model is highly iterative and promotes continuous delivery through brief &quot;sprints&quot;?",
+    "options": [
+      "A) Waterfall Model",
+      "B) Spiral Model",
+      "C) V-Model",
+      "D) Agile Model"
+    ],
+    "answer": 3
+  },
+  {
+    "id": 37,
+    "question": "Establishing what the system must do and defining the constraints under which it must operate is done during:",
+    "options": [
+      "A) System Testing",
+      "B) Requirements Engineering",
+      "C) Architectural Design",
+      "D) Maintenance"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 38,
+    "question": "What does &quot;High Cohesion&quot; refer to in Software Design?",
+    "options": [
+      "A) The degree of interdependence between different modules",
+      "B) Ensuring functions inside a module belong together and serve a single purpose",
+      "C) Building a fast graphical user interface",
+      "D) Deploying code rapidly"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 39,
+    "question": "Which testing methodology requires full knowledge of the internal logic and code of the software being tested?",
+    "options": [
+      "A) Black-box Testing",
+      "B) White-box Testing",
+      "C) Integration Testing",
+      "D) Acceptance Testing"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 40,
+    "question": "What is the fundamental goal of Software Quality Assurance (SQA)?",
+    "options": [
+      "A) To rewrite the code continuously",
+      "B) To write project timelines",
+      "C) To ensure that software engineering processes and products conform to established standards",
+      "D) To debug errors manually"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 41,
+    "question": "Moving from code implementation to live production servers is handled under which discipline?",
+    "options": [
+      "A) Configuration Management / Deployment",
+      "B) Risk Assessment",
+      "C) Requirement Gathering",
+      "D) Reverse Engineering"
+    ],
+    "answer": 0
+  },
+  {
+    "id": 42,
+    "question": "MVC is a common architectural pattern. What does MVC stand for?",
+    "options": [
+      "A) Model View Controller",
+      "B) Module Virtual Class",
+      "C) Main Variable Constant",
+      "D) Method Validated Call"
+    ],
+    "answer": 0
+  },
+  {
+    "id": 43,
+    "question": "Which artifact is a visual representation of how a user interacts with a system in UML?",
+    "options": [
+      "A) Class Diagram",
+      "B) Use Case Diagram",
+      "C) Component Diagram",
+      "D) ER Diagram"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 44,
+    "question": "Software Risk Management includes all of the following EXCEPT:",
+    "options": [
+      "A) Risk Identification",
+      "B) Risk Mitigation",
+      "C) Risk Capitalization",
+      "D) Risk Assessment"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 45,
+    "question": "Version control systems like Git fall under which dimension of software engineering?",
+    "options": [
+      "A) Software Metrics",
+      "B) Requirements Elicitation",
+      "C) Configuration Management",
+      "D) Verification and Validation"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 46,
+    "question": "Which protocol is the foundation of data communication for the World Wide Web?",
+    "options": [
+      "A) FTP",
+      "B) SMTP",
+      "C) HTTP/HTTPS",
+      "D) SSH"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 47,
+    "question": "In HTML, what does the `<nav>` tag semantically represent?",
+    "options": [
+      "A) Navigation links section",
+      "B) New audio video elements",
+      "C) Network connectivity check",
+      "D) Null-avoidance validation"
+    ],
+    "answer": 0
+  },
+  {
+    "id": 48,
+    "question": "Which CSS concept describes how boxes are modeled (margin, border, padding, and content)?",
+    "options": [
+      "A) Float Model",
+      "B) Flexbox",
+      "C) Box Model",
+      "D) Grid Layout"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 49,
+    "question": "In Advanced JavaScript, what feature allows a function to remember the variables of its outer (enclosing) scope even after that scope has finished executing?",
+    "options": [
+      "A) Async/Await",
+      "B) Promise",
+      "C) Callback",
+      "D) Closure"
+    ],
+    "answer": 3
+  },
+  {
+    "id": 50,
+    "question": "Which of the following is a prominent modern JavaScript frontend library/framework?",
+    "options": [
+      "A) Django",
+      "B) React",
+      "C) Laravel",
+      "D) Flask"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 51,
+    "question": "Which backend technology primarily allows JavaScript to be run outside of a web browser (Server-side)?",
+    "options": [
+      "A) Bootstrap",
+      "B) SASS",
+      "C) Node.js",
+      "D) Webpack"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 52,
+    "question": "SQL Injection is a primary security vulnerability for web applications. How can it best be prevented?",
+    "options": [
+      "A) Using simpler queries",
+      "B) Hashing all database tables",
+      "C) Using Prepared Statements (Parameterized Queries)",
+      "D) Disabling JavaScript on the browser"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 53,
+    "question": "A RESTful Web API typically communicates data over HTTP using which format?",
+    "options": [
+      "A) XML or JSON",
+      "B) HTML or CSS",
+      "C) CSV or TSV",
+      "D) SQL or NoSQL"
+    ],
+    "answer": 0
+  },
+  {
+    "id": 54,
+    "question": "What is the purpose of minifying CSS and JavaScript files before deployment?",
+    "options": [
+      "A) To add extra security encryption",
+      "B) To reduce file size for faster load times (Web Performance)",
+      "C) To convert them into binary executables",
+      "D) To make the code easier for developers to read"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 55,
+    "question": "In Web Architecture, what does a Load Balancer do?",
+    "options": [
+      "A) Automatically writes CSS queries",
+      "B) Distributes incoming network traffic across multiple backend servers",
+      "C) Compresses local images",
+      "D) Checks code syntax errors"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 56,
+    "question": "Which type of Machine Learning relies on the provision of labeled training data (input-output pairs)?",
+    "options": [
+      "A) Unsupervised Learning",
+      "B) Reinforcement Learning",
+      "C) Supervised Learning",
+      "D) Transfer Learning"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 57,
+    "question": "In Data Pre-processing, &quot;Imputation&quot; usually refers to:",
+    "options": [
+      "A) Removing all outliers from a dataset",
+      "B) Handling missing values by filling them with a statistical measure (like mean or median)",
+      "C) Changing strings to integers",
+      "D) Connecting to an external API"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 58,
+    "question": "Random Forest is an example of which type of ML technique?",
+    "options": [
+      "A) Deep Learning",
+      "B) Unsupervised Clustering",
+      "C) Linear Regression",
+      "D) Ensemble Learning"
+    ],
+    "answer": 3
+  },
+  {
+    "id": 59,
+    "question": "To evaluate a classification model, we use a table showing true positives, false positives, true negatives, and false negatives. What is this table called?",
+    "options": [
+      "A) Decision Table",
+      "B) Pivot Table",
+      "C) Confusion Matrix",
+      "D) Regression Plot"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 60,
+    "question": "Which neural network architecture is explicitly designed to recognize patterns in spatial data, such as images (Computer Vision)?",
+    "options": [
+      "A) RNN (Recurrent Neural Network)",
+      "B) CNN (Convolutional Neural Network)",
+      "C) GAN (Generative Adversarial Network)",
+      "D) ANN (Artificial Neural Network)"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 61,
+    "question": "What does NLP stand for in the context of Artificial Intelligence?",
+    "options": [
+      "A) Network Layer Protocol",
+      "B) Neural Logic Programming",
+      "C) Natural Language Processing",
+      "D) Node-Level Precision"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 62,
+    "question": "Creating new variables from existing ones to improve moving model accuracy is known as:",
+    "options": [
+      "A) Dimensionality Reduction",
+      "B) Model Optimization",
+      "C) Feature Engineering",
+      "D) Data Scrubbing"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 63,
+    "question": "The K-Means algorithm is a popular method used for:",
+    "options": [
+      "A) Text summarizing",
+      "B) Image filtering",
+      "C) Classification",
+      "D) Clustering"
+    ],
+    "answer": 3
+  },
+  {
+    "id": 64,
+    "question": "What is the primary purpose of an Activation Function in a neural network?",
+    "options": [
+      "A) To initialize the weights to zero",
+      "B) To introduce non-linearity into the output of a neuron",
+      "C) To increase the dataset size",
+      "D) To download libraries"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 65,
+    "question": "In Big Data and ML, what does MLOps primarily focus on?",
+    "options": [
+      "A) Designing front-end UI for ML apps",
+      "B) Automating the continuous integration, deployment, and monitoring of ML models",
+      "C) Manual data entry operations",
+      "D) Marketing ML products"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 66,
+    "question": "The core principles of Information Security are universally known as the CIA Triad. What does CIA stand for?",
+    "options": [
+      "A) Confidentiality, Integrity, Availability",
+      "B) Control, Identification, Authorization",
+      "C) Cryptography, Internet, Access",
+      "D) Cyber, Intelligence, Authentication"
+    ],
+    "answer": 0
+  },
+  {
+    "id": 67,
+    "question": "In Cryptography, what is the difference between symmetric and asymmetric encryption?",
+    "options": [
+      "A) Symmetric uses binary, asymmetric uses hexadecimal",
+      "B) Symmetric uses public keys, asymmetric uses private keys",
+      "C) Symmetric uses one shared key for both encryption and decryption, asymmetric uses a public/private key pair",
+      "D) Symmetric is for text, asymmetric is for files"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 68,
+    "question": "A targeted cyber-attack technique designed to trick individuals into revealing sensitive information by pretending to be a trustworthy entity is called:",
+    "options": [
+      "A) Ransomware",
+      "B) Keylogging",
+      "C) Phishing",
+      "D) DDoS"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 69,
+    "question": "Verifying the identity of a user is known as \\_\\_\\_\\_\\_\\_\\_, while determining what they are allowed to do is known as \\_\\_\\_\\_\\_\\_\\_.",
+    "options": [
+      "A) Authorization, Authentication",
+      "B) Integrity, Non-repudiation",
+      "C) Authentication, Authorization",
+      "D) Forensics, Auditing"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 70,
+    "question": "In Incident Response, what is the 'Containment' phase?",
+    "options": [
+      "A) Erasing all hard drives",
+      "B) Writing the post-incident report",
+      "C) Isolating the affected systems to prevent the damage from spreading",
+      "D) Paying the ransom to attackers"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 71,
+    "question": "What does the acronym RDBMS stand for?",
+    "options": [
+      "A) Relational Database Management System",
+      "B) Random Data Block Memory System",
+      "C) Rapid Database Maintenance Software",
+      "D) Record Data Binary Master System"
+    ],
+    "answer": 0
+  },
+  {
+    "id": 72,
+    "question": "In SQL, which constraint uniquely identifies each record in a database table and cannot contain NULL values?",
+    "options": [
+      "A) FOREIGN KEY",
+      "B) UNIQUE",
+      "C) PRIMARY KEY",
+      "D) CHECK"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 73,
+    "question": "Database Normalization is a process utilized primarily to:",
+    "options": [
+      "A) Create backups securely",
+      "B) Reduce data redundancy and avoid anomalies",
+      "C) Increase the size of the database randomly",
+      "D) Generate SQL queries automatically"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 74,
+    "question": "Which of the following is considered a standard NoSQL database?",
+    "options": [
+      "A) MySQL",
+      "B) Oracle Database",
+      "C) PostgreSQL",
+      "D) MongoDB"
+    ],
+    "answer": 3
+  },
+  {
+    "id": 75,
+    "question": "The ACID properties ensure reliable processing of database transactions. What does ACID stand for?",
+    "options": [
+      "A) Availability, Consistency, Isolation, Distribution",
+      "B) Atomicity, Consistency, Isolation, Durability",
+      "C) Authorization, Confidentiality, Integrity, Dependability",
+      "D) Accuracy, Control, Independence, Duration"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 76,
+    "question": "Which SQL operation is used to combine rows from two or more tables based on a related column between them?",
+    "options": [
+      "A) UNION",
+      "B) MERGE",
+      "C) JOIN",
+      "D) COMBINE"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 77,
+    "question": "In Indexing, what is the primary structural format used by traditional relational databases to quickly locate data?",
+    "options": [
+      "A) Linked List",
+      "B) B-Tree or B+Tree",
+      "C) Queue",
+      "D) Undirected Graph"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 78,
+    "question": "In Data Warehousing, the process of extracting data from various sources, transforming it to fit operational needs, and loading it into the data warehouse is known as:",
+    "options": [
+      "A) API Integration",
+      "B) ETL (Extract, Transform, Load)",
+      "C) DOM (Data Object Model)",
+      "D) Data Mining"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 79,
+    "question": "Which SQL command is considered DDL (Data Definition Language)?",
+    "options": [
+      "A) SELECT",
+      "B) UPDATE",
+      "C) INSERT",
+      "D) CREATE"
+    ],
+    "answer": 3
+  },
+  {
+    "id": 80,
+    "question": "Preventing concurrent transactions from interfering with each other falls under which concept?",
+    "options": [
+      "A) Concurrency Control",
+      "B) Data Archiving",
+      "C) Sharding",
+      "D) Replication"
+    ],
+    "answer": 0
+  },
+  {
+    "id": 81,
+    "question": "The initial phase of Problem Solving requires:",
+    "options": [
+      "A) Implementing code blindly",
+      "B) Compiling the program",
+      "C) Problem Understanding & Analysis",
+      "D) Marketing the solution"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 82,
+    "question": "In Algorithmic Thinking, breaking a complex problem down into smaller, more manageable sub-problems is known as:",
+    "options": [
+      "A) Generalization",
+      "B) Decomposition",
+      "C) Abstraction",
+      "D) Encapsulation"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 83,
+    "question": "&quot;If all roses are flowers and some flowers fade quickly, what can be logically deduced?&quot; is an example of:",
+    "options": [
+      "A) Mathematical Execution",
+      "B) Data Representation",
+      "C) Logical Reasoning Fundamentals",
+      "D) Syntax Debugging"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 84,
+    "question": "Which visual representation is commonly used to plan algorithms showing flow control (Start, Process, Decision, End)?",
+    "options": [
+      "A) Entity-Relationship Model",
+      "B) Gantt Chart",
+      "C) Topology Map",
+      "D) Flowchart"
+    ],
+    "answer": 3
+  },
+  {
+    "id": 85,
+    "question": "Analyzing a piece of software and finding that when `x = 5`, the output is unexpectedly `-1`, is a part of:",
+    "options": [
+      "A) Code Optimization",
+      "B) Debugging & Error Analysis",
+      "C) System Deployment",
+      "D) Cloud Archiving"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 86,
+    "question": "Recognizing that traversing a directory on a computer is practically identical to traversing a tree data structure utilizes:",
+    "options": [
+      "A) Abstraction",
+      "B) Pattern Recognition",
+      "C) Hardware Execution",
+      "D) Trial and Error"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 87,
+    "question": "When choosing between two working algorithms, prioritizing efficiency requires analyzing the:",
+    "options": [
+      "A) Programming language versions",
+      "B) Complexity (Time and Space)",
+      "C) Developer's typing speed",
+      "D) Length of variable names"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 88,
+    "question": "You have two hourglasses\u2014a 7-minute one and an 11-minute one. Measuring out exactly 15 minutes of time represents:",
+    "options": [
+      "A) Quantum Computing",
+      "B) Algorithmic thinking & Mathematical Reasoning",
+      "C) Software Testing",
+      "D) Data Visualization"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 89,
+    "question": "Abstracting irrelevant details to focus on the essential properties that matter to the problem is called:",
+    "options": [
+      "A) Obfuscation",
+      "B) Encapsulation",
+      "C) Data Abstraction",
+      "D) Normalization"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 90,
+    "question": "When you iteratively build testing hypotheses to isolate a software bug, you are applying:",
+    "options": [
+      "A) Agile frameworks testing",
+      "B) Analytical logical deduction",
+      "C) Brute force hardware checks",
+      "D) Cyber forensics"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 91,
+    "question": "Which capability ensures you can explain your highly technical solution to a non-technical manager?",
+    "options": [
+      "A) Multi-threading",
+      "B) Advanced Math",
+      "C) Communication & Documentation",
+      "D) Object-Oriented Design"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 92,
+    "question": "An algorithm solves a complex mathematical problem by trying every single possible combination until it finds the answer. This is an example of:",
+    "options": [
+      "A) Brute Force",
+      "B) Heuristic",
+      "C) Dynamic Programming",
+      "D) Divide and Conquer"
+    ],
+    "answer": 0
+  },
+  {
+    "id": 93,
+    "question": "A company notices their shipping times are delaying profits. Solving this purely by analyzing historical dataset trends instead of guessing is called:",
+    "options": [
+      "A) Manual assumption",
+      "B) Hardware scaling",
+      "C) Data-Driven Problem Solving",
+      "D) Encapsulation"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 94,
+    "question": "You are stuck with a bug you cannot solve despite hours of looking at it. Seeking an unconventional perspective or completely reshaping the architecture relies on:",
+    "options": [
+      "A) Syntax memorization",
+      "B) Creative & Innovative Thinking",
+      "C) Following standard tutorials exactly",
+      "D) Deleting the repository"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 95,
+    "question": "In a Flowchart, a diamond-shaped symbol typically represents:",
+    "options": [
+      "A) Input/Output",
+      "B) Process",
+      "C) Decision / Condition",
+      "D) Start/End"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 96,
+    "question": "What is the fundamental difference between an Algorithm and a Heuristic?",
+    "options": [
+      "A) An algorithm guarantees an accurate solution, a heuristic provides a \"good enough\" quick solution.",
+      "B) Algorithms are used in Python, heuristics in C++.",
+      "C) Algorithms are fast, heuristics are slow.",
+      "D) There is no difference."
+    ],
+    "answer": 0
+  },
+  {
+    "id": 97,
+    "question": "Real-world problem solving requires adapting highly optimized theoretical structures to:",
+    "options": [
+      "A) Conform strictly to academic perfection",
+      "B) Deal with messy, unaccounted variables and constraints of real environments",
+      "C) Minimize lines of code regardless of readability",
+      "D) Satisfy programming compilers only"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 98,
+    "question": "During a system outage, a leader systematically delegates tasks, tests theories, and rules out failed hardware one by one. This emphasizes:",
+    "options": [
+      "A) Critical Thinking & Decision Making",
+      "B) Abstract Database Normalization",
+      "C) Object-Oriented execution",
+      "D) User Interface styling"
+    ],
+    "answer": 0
+  },
+  {
+    "id": 99,
+    "question": "Your program crashes only when a user types a negative number. This exposes a failure in:",
+    "options": [
+      "A) Network latency",
+      "B) Server side rendering",
+      "C) Designing for Edge Cases (Robustness)",
+      "D) Compiling the OS"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 100,
+    "question": "Efficiency Awareness entails:",
+    "options": [
+      "A) Making sure the developer writes code fast.",
+      "B) Ensuring that the solution does not waste CPU cycles, memory unnecessarily, or drain hardware bandwidth.",
+      "C) Picking the newest programming framework.",
+      "D) Buying faster servers instead of analyzing code."
+    ],
+    "answer": 1
+  }
+];
+
+const quizContainer = document.getElementById('quiz-container');
+
+function createQuiz() {
+    quizData.forEach((q, index) => {
+        const qDiv = document.createElement('div');
+        qDiv.className = 'question';
+        qDiv.id = `q-${index}`;
+        
+        const qTitle = document.createElement('div');
+        qTitle.className = 'q-title';
+        qTitle.innerText = `${q.id}. ${q.question}`;
+        qDiv.appendChild(qTitle);
+        
+        const optionsDiv = document.createElement('div');
+        optionsDiv.className = 'options';
+        
+        q.options.forEach((opt, optIndex) => {
+            const label = document.createElement('label');
+            const radio = document.createElement('input');
+            radio.type = 'radio';
+            radio.name = `question${index}`;
+            radio.value = optIndex;
+            radio.style.marginRight = '10px';
+            
+            label.appendChild(radio);
+            label.appendChild(document.createTextNode(opt));
+            optionsDiv.appendChild(label);
+        });
+        
+        qDiv.appendChild(optionsDiv);
+        
+        const feedbackDiv = document.createElement('div');
+        feedbackDiv.className = 'feedback';
+        feedbackDiv.id = `feedback-${index}`;
+        feedbackDiv.style.display = 'none';
+        qDiv.appendChild(feedbackDiv);
+        
+        quizContainer.appendChild(qDiv);
+    });
+}
+
+function submitQuiz() {
+    let score = 0;
+    
+    quizData.forEach((q, index) => {
+        const selected = document.querySelector(`input[name="question${index}"]:checked`);
+        
+        // 1. Highlight the actually correct answer in green
+        const correctRadio = document.querySelector(`input[name="question${index}"][value="${q.answer}"]`);
+        if (correctRadio) {
+            const correctLabel = correctRadio.parentElement;
+            correctLabel.style.backgroundColor = '#d4edda';
+            correctLabel.style.borderColor = '#c3e6cb';
+            correctLabel.style.color = '#155724';
+            correctLabel.style.fontWeight = 'bold';
+        }
+
+        if (selected) {
+            const userAnswer = parseInt(selected.value);
+            if (userAnswer === q.answer) {
+                score++;
+            } else {
+                // 2. User chose wrong answer, highlight their choice in red
+                const wrongLabel = selected.parentElement;
+                wrongLabel.style.backgroundColor = '#f8d7da';
+                wrongLabel.style.borderColor = '#f5c6cb';
+                wrongLabel.style.color = '#721c24';
+                wrongLabel.style.textDecoration = 'line-through';
+            }
+        }
+        
+        // Hide the feedback div since we are coloring labels instead
+        const feedbackDiv = document.getElementById(`feedback-${index}`);
+        if(feedbackDiv) feedbackDiv.style.display = 'none';
+        
+        // Disable all radio buttons
+        const radios = document.querySelectorAll(`input[name="question${index}"]`);
+        radios.forEach(r => r.disabled = true);
+    });
+    
+    // Hide the submit button
+    document.querySelector('.submit-btn').style.display = 'none';
+    
+    // Move results div to the top
+    const resultsDiv = document.getElementById('results');
+    const container = document.querySelector('.container');
+    const quizContainer = document.getElementById('quiz-container');
+    container.insertBefore(resultsDiv, quizContainer);
+    
+    resultsDiv.style.display = 'block';
+    
+    const scoreText = document.getElementById('score-text');
+    scoreText.innerText = `${score} / ${quizData.length}`;
+    
+    const scoreMsg = document.getElementById('score-msg');
+    const percentage = (score / quizData.length) * 100;
+    if (percentage >= 80) scoreMsg.innerText = "Fantastic! You are highly proficient!";
+    else if (percentage >= 60) scoreMsg.innerText = "Good job! You have a solid grasp of the concepts.";
+    else if (percentage >= 40) scoreMsg.innerText = "You passed, but there's room for improvement in some areas.";
+    else scoreMsg.innerText = "Keep studying! Review the areas where you struggled.";
+    
+    // Quick scroll to top to see results
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+createQuiz();
+</script>
+</body>
+</html>
