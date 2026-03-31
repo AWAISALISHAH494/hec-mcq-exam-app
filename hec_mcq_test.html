@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HEC Competency Test</title>
+<title>HEC Competency Test | Mod by Awais Ali Shah</title>
 <style>
   body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; color: #333; margin: 0; padding: 20px; }
   .container { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
@@ -14,18 +14,37 @@
   .options label:hover { background-color: #f0f0f0; border-color: #ccc; }
   .submit-btn { display: block; width: 100%; padding: 15px; background-color: #3498db; color: white; font-size: 18px; font-weight: bold; border: none; border-radius: 5px; cursor: pointer; transition: background 0.3s; }
   .submit-btn:hover { background-color: #2980b9; }
-  #results { margin-top: 30px; text-align: center; display: none; padding: 20px; background: #fff; border-radius: 8px; border: 2px solid #27ae60; }
+  #results { margin-top: 30px; text-align: center; display: none; padding: 20px; background: #fff; border-radius: 8px; border: 2px solid #27ae60; margin-bottom: 30px; }
   .score { font-size: 3em; font-weight: bold; color: #27ae60; margin: 10px 0; }
-  .feedback { margin-top: 10px; font-size: 1em; padding: 15px; border-radius: 5px;}
-  .feedback.correct { background-color: #e8f8f5; border: 1px solid #27ae60; color: #27ae60;}
-  .feedback.wrong { background-color: #fdedec; border: 1px solid #c0392b; color: #c0392b;}
 </style>
 </head>
 <body>
 
+<div id="disclaimer-modal" style="position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); display:flex; justify-content:center; align-items:center; z-index:9999;">
+  <div style="background:white; padding:40px; border-radius:10px; max-width:500px; text-align:center; box-shadow: 0 10px 25px rgba(0,0,0,0.5);">
+    <h2 style="color:#e74c3c;"> Disclaimer</h2>
+    <p style="font-size: 16px; line-height: 1.6;">Please note that these exact questions are not guaranteed to appear on the official test. This application is purely a <strong>preparation tool</strong> developed by <strong>AWAIS ALI SHAH</strong> to help you study subjects based on the NSCT HEC course outline.</p>
+    <button onclick="document.getElementById('disclaimer-modal').style.display='none'" style="margin-top:20px; padding:12px 30px; background:#3498db; color:white; border:none; border-radius:5px; cursor:pointer; font-size:18px; font-weight:bold;">I Understand, Let's Begin!</button>
+  </div>
+</div>
+
 <div class="container">
-    <h1>📝 HEC National Skills Competency Test</h1>
-    <p style="text-align:center; margin-bottom:30px; color:#666;">Test your knowledge out of 100 questions. Select an answer for each question and click Submit at the very bottom.</p>
+    <div style="text-align: center; margin-bottom: 30px; padding: 20px; border-bottom: 1px solid #ddd; color: #555; background-color: #f9f9f9; border-radius: 8px;">
+        <p style="font-size: 18px; margin: 0;">&copy; 2026 Developed & Owned by <strong>AWAIS ALI SHAH</strong></p>
+        <p style="margin-top: 15px; margin-bottom: 0;">
+            <a href="https://github.com/AWAISALISHAH494" target="_blank" style="color:#333; text-decoration:none; margin: 0 15px; font-weight: bold; font-size: 16px;">
+                <svg style="width:24px; vertical-align:middle; margin-right: 5px;" viewBox="0 0 16 16"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg> GitHub
+            </a>
+            <a href="https://www.linkedin.com/in/awais-ali-shah-559355281/" target="_blank" style="color:#0077b5; text-decoration:none; margin: 0 15px; font-weight: bold; font-size: 16px;">
+                <svg style="width:24px; vertical-align:middle; margin-right: 5px;" viewBox="0 0 24 24"><path fill="currentColor" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg> LinkedIn
+            </a>
+        </p>
+    </div>
+    <h1> HEC NSCT Mock Exam</h1>
+    <p style="text-align:center; margin-bottom:15px; color:#666;">Test your knowledge out of 200 questions. Select an answer for each question.</p>
+    <div style="text-align:center; background:#e8f8f5; border:1px solid #27ae60; color:#155724; padding:15px; border-radius:8px; margin-bottom:30px; font-size:16px;">
+        <strong>Note:</strong> <em>Submit Test & Get Score</em> button neechay dia gaya hai. Tamam MCQs attempt karne kay baad aap wahan se apna score check kar saktay hain.
+    </div>
     
     <div id="quiz-container"></div>
     <button class="submit-btn" onclick="submitQuiz()">Submit Test & Get Score</button>
@@ -36,6 +55,8 @@
         <p id="score-msg" style="font-size: 1.2em; font-weight: 500;"></p>
         <button class="submit-btn" style="background-color:#7f8c8d; margin-top: 20px;" onclick="location.reload()">Retake Test</button>
     </div>
+
+
 </div>
 
 <script>
@@ -1139,9 +1160,1108 @@ const quizData = [
       "D) Buying faster servers instead of analyzing code."
     ],
     "answer": 1
+  },
+  {
+    "id": 101,
+    "question": "Which IP address class is conventionally reserved for multicast addressing?",
+    "options": [
+      "A) Class A",
+      "B) Class B",
+      "C) Class C",
+      "D) Class D"
+    ],
+    "answer": 3
+  },
+  {
+    "id": 102,
+    "question": "What protocol is used to map a known IP address to an unknown MAC address?",
+    "options": [
+      "A) RARP",
+      "B) DNS",
+      "C) ARP",
+      "D) ICMP"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 103,
+    "question": "In the OSI model, which layer restricts data transmission rates to prevent a fast sender from overwhelming a slow receiver (Flow Control)?",
+    "options": [
+      "A) Transport Layer",
+      "B) Network Layer",
+      "C) Physical Layer",
+      "D) Application Layer"
+    ],
+    "answer": 0
+  },
+  {
+    "id": 104,
+    "question": "In IPv6, how many bits does an IP address contain?",
+    "options": [
+      "A) 32 bits",
+      "B) 64 bits",
+      "C) 128 bits",
+      "D) 256 bits"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 105,
+    "question": "&quot;Infrastructure as Code&quot; (IaC) is primarily associated with which aspect of Cloud Computing?",
+    "options": [
+      "A) SaaS management",
+      "B) Automating the provisioning of infrastructure",
+      "C) Storing raw code files securely",
+      "D) Designing web interfaces"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 106,
+    "question": "Which cloud deployment model serves multiple organizations that share common concerns (e.g., security requirements, policy)?",
+    "options": [
+      "A) Public Cloud",
+      "B) Private Cloud",
+      "C) Community Cloud",
+      "D) Hybrid Cloud"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 107,
+    "question": "CSMA/CD is a protocol used primarily in: ",
+    "options": [
+      "A) Token Ring Networks",
+      "B) Ethernet Networks",
+      "C) Fiber Optic Networks",
+      "D) Cellular Networks"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 108,
+    "question": "A Virtual Private Network (VPN) creates a secure tunnel primarily using which suite of protocols?",
+    "options": [
+      "A) FTP",
+      "B) IPSec",
+      "C) SNMP",
+      "D) SMTP"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 109,
+    "question": "What is the primary function of a Subnet Mask?",
+    "options": [
+      "A) To hide the IP address from hackers",
+      "B) To divide an IP address into network and host addresses",
+      "C) To act as a wireless access point",
+      "D) To convert analog signals to digital"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 110,
+    "question": "Which protocol is primarily responsible for sending emails between servers?",
+    "options": [
+      "A) POP3",
+      "B) IMAP",
+      "C) SMTP",
+      "D) HTTP"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 111,
+    "question": "In C++, what keyword signifies that a variable's value cannot be changed once assigned?",
+    "options": [
+      "A) static",
+      "B) const",
+      "C) final",
+      "D) immutable"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 112,
+    "question": "In Java, which access modifier restricts visibility to the same package and subclasses?",
+    "options": [
+      "A) public",
+      "B) private",
+      "C) protected",
+      "D) default"
+    ],
+    "answer": 3
+  },
+  {
+    "id": 113,
+    "question": "In Python, what does the `",
+    "options": [
+      "A) Bitwise XOR",
+      "B) Pointer dereferencing",
+      "C) Exponentiation",
+      "D) Logical AND"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 114,
+    "question": "A destructor in C++ is denoted by using which character before the class name?",
+    "options": [
+      "A) #",
+      "B) ~",
+      "C) *",
+      "D) &"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 115,
+    "question": "What design pattern ensures that only one instance of a class is created throughout the system?",
+    "options": [
+      "A) Factory",
+      "B) Observer",
+      "C) Singleton",
+      "D) Decorator"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 116,
+    "question": "In Java, the `String` class is:",
+    "options": [
+      "A) Mutable",
+      "B) Immutable",
+      "C) A primitive data type",
+      "D) Inherited from the Integer class"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 117,
+    "question": "What is the output of the Python expression `len(&quot;Hello&quot; + &quot;World&quot;)`?",
+    "options": [
+      "A) 5",
+      "B) 10",
+      "C) Error",
+      "D) 11"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 118,
+    "question": "Which programming paradigm treats computation as the evaluation of mathematical functions avoiding changing-state and mutable data?",
+    "options": [
+      "A) Imperative Programming",
+      "B) Object-Oriented Programming",
+      "C) Functional Programming",
+      "D) Procedural Programming"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 119,
+    "question": "In Python, which collection type is defined by key-value pairs?",
+    "options": [
+      "A) List",
+      "B) Tuple",
+      "C) Dictionary",
+      "D) Set"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 120,
+    "question": "Memory allocated during execution time (dynamically) in C++ is conceptually allocated from the:",
+    "options": [
+      "A) Stack",
+      "B) Queue",
+      "C) Heap",
+      "D) Code Segment"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 121,
+    "question": "What is the time complexity of pushing an element onto a Stack using an array?",
+    "options": [
+      "A) O(n)",
+      "B) O(n^2)",
+      "C) O(log n)",
+      "D) O(1)"
+    ],
+    "answer": 3
+  },
+  {
+    "id": 122,
+    "question": "Which traversal method of a binary tree visits the root, then the left subtree, then the right subtree?",
+    "options": [
+      "A) In-order",
+      "B) Pre-order",
+      "C) Post-order",
+      "D) Level-order"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 123,
+    "question": "AVL trees, Red-Black trees, and B-trees are all examples of:",
+    "options": [
+      "A) Spanning trees",
+      "B) Unbalanced trees",
+      "C) Self-balancing search trees",
+      "D) Heaps"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 124,
+    "question": "Which sorting algorithm builds the final sorted array one item at a time, performing well for small arrays but poorly for large ones?",
+    "options": [
+      "A) QuickSort",
+      "B) MergeSort",
+      "C) Insertion Sort",
+      "D) Radix Sort"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 125,
+    "question": "The process of arranging elements of a data structure so they follow an ordered sequence is known as:",
+    "options": [
+      "A) Searching",
+      "B) Hashing",
+      "C) Sorting",
+      "D) Merging"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 126,
+    "question": "A queue relies on which principle?",
+    "options": [
+      "A) LIFO (Last In First Out)",
+      "B) FILO (First In Last Out)",
+      "C) FIFO (First In First Out)",
+      "D) Random Access"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 127,
+    "question": "Which graph algorithm utilizes a Queue to explore the shortest path in an unweighted graph?",
+    "options": [
+      "A) Depth First Search (DFS)",
+      "B) Breadth First Search (BFS)",
+      "C) Kruskal's Algorithm",
+      "D) Bellman-Ford"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 128,
+    "question": "What is a completely connected subgraph called?",
+    "options": [
+      "A) Clique",
+      "B) Tree",
+      "C) Vertex",
+      "D) Cycle"
+    ],
+    "answer": 0
+  },
+  {
+    "id": 129,
+    "question": "In Hashing, Open Addressing and Separate Chaining are techniques used for:",
+    "options": [
+      "A) Encrypting databases",
+      "B) Collision resolution",
+      "C) Improving processor speeds",
+      "D) Traversing graphs"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 130,
+    "question": "Dynamic Programming differs from Divide and Conquer fundamentally because it:",
+    "options": [
+      "A) Uses arrays exclusively",
+      "B) Is always iterative, never recursive",
+      "C) Stores the solutions to overlapping subproblems to avoid recomputing them",
+      "D) Splits problems into disjoint, independent subproblems"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 131,
+    "question": "A context switch occurs when:",
+    "options": [
+      "A) A user types on the keyboard",
+      "B) The CPU saves the state of a running process and loads the state of another",
+      "C) The OS reboots",
+      "D) A file is deleted"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 132,
+    "question": "What is the fundamental difference between a Process and a Thread?",
+    "options": [
+      "A) Threads have their own memory space; processes do not",
+      "B) A process is a lightweight unit; a thread is heavy",
+      "C) Multiple threads share the same process memory space; processes are isolated",
+      "D) There is no programming difference"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 133,
+    "question": "Which OS component is responsible for translating logical addresses to physical addresses?",
+    "options": [
+      "A) CPU Scheduler",
+      "B) ALU",
+      "C) Memory Management Unit (MMU)",
+      "D) File System API"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 134,
+    "question": "&quot;Virtual Memory&quot; allows an operating system to:",
+    "options": [
+      "A) Run programs larger than the physical RAM by using secondary storage",
+      "B) Increase the physical speed of the CPU",
+      "C) Bypass the motherboard",
+      "D) Connect to cloud computing nodes automatically"
+    ],
+    "answer": 0
+  },
+  {
+    "id": 135,
+    "question": "In OS synchronization, what is a Mutex?",
+    "options": [
+      "A) A dual-core processor feature",
+      "B) A lock mechanism used to prevent multiple threads from accessing a shared resource simultaneously",
+      "C) A specialized deadlocking algorithm",
+      "D) An input/output buffering system"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 136,
+    "question": "What is the main principle behind Test-Driven Development (TDD)?",
+    "options": [
+      "A) Write the testing software after the project is complete",
+      "B) Write automated tests before writing the actual production code",
+      "C) Have dedicated testers write the code",
+      "D) Combine UX design with manual testing"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 137,
+    "question": "Which software measurement assesses the complexity of a program's control flow?",
+    "options": [
+      "A) Lines of Code (LOC)",
+      "B) Cyclomatic Complexity",
+      "C) Function Points",
+      "D) Halstead Metrics"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 138,
+    "question": "Which document officially binds the client's expectations with the development team's deliverables?",
+    "options": [
+      "A) User Manual",
+      "B) Project Charter",
+      "C) Software Requirements Specification (SRS)",
+      "D) Maintenance Log"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 139,
+    "question": "A &quot;Sprint&quot; in the Scrum framework typically lasts:",
+    "options": [
+      "A) 1 to 4 weeks",
+      "B) 3 to 6 months",
+      "C) A single day",
+      "D) 1 year"
+    ],
+    "answer": 0
+  },
+  {
+    "id": 140,
+    "question": "Coupling refers to the degree of interdependence between software modules. Good software design promotes:",
+    "options": [
+      "A) High coupling and high cohesion",
+      "B) Low coupling and high cohesion",
+      "C) Low coupling and low cohesion",
+      "D) High coupling and low cohesion"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 141,
+    "question": "Alpha and Beta testing are examples of which type of testing?",
+    "options": [
+      "A) Unit Testing",
+      "B) Acceptance Testing",
+      "C) Integration Testing",
+      "D) White-Box Testing"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 142,
+    "question": "The process of modifying a software system to improve its internal structure without changing its external behavior is known as:",
+    "options": [
+      "A) Reverse Engineering",
+      "B) Refactoring",
+      "C) Prototyping",
+      "D) Requirements Elicitation"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 143,
+    "question": "In UML, a sequence diagram is used primarily to model:",
+    "options": [
+      "A) The static structure of classes",
+      "B) The dynamic interactions and message passing between objects over time",
+      "C) Code database schemas",
+      "D) Network topologies"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 144,
+    "question": "Software Evolution primarily deals with:",
+    "options": [
+      "A) Initial design phases only",
+      "B) Retiring software systems entirely",
+      "C) Accommodating changes and adapting software after its initial release",
+      "D) Hardware upgrades"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 145,
+    "question": "What does the term &quot;Technical Debt&quot; signify?",
+    "options": [
+      "A) Financial loans taken out by tech startups",
+      "B) The implied cost of additional rework caused by choosing an easy, limited solution now instead of a better approach",
+      "C) Hardware depreciation over time",
+      "D) Salaries owed to developers"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 146,
+    "question": "Which HTML attribute specifies an alternate text for an image if the image cannot be displayed?",
+    "options": [
+      "A) title",
+      "B) src",
+      "C) alt",
+      "D) longdesc"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 147,
+    "question": "What does the 'C' in CSS stand for?",
+    "options": [
+      "A) Computer",
+      "B) Cascading",
+      "C) Colorful",
+      "D) Creative"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 148,
+    "question": "The practice of designing web pages to automatically adjust and look good on all devices (desktops, tablets, phones) is called:",
+    "options": [
+      "A) Static Design",
+      "B) Rigid Design",
+      "C) Responsive Design",
+      "D) Material Design"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 149,
+    "question": "In JavaScript, which function is used to convert a JSON string into a native JavaScript object?",
+    "options": [
+      "A) JSON.stringify()",
+      "B) JSON.parse()",
+      "C) JSON.objectify()",
+      "D) String.toJSON()"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 150,
+    "question": "A &quot;Single Page Application&quot; (SPA) primarily prevents the browser from doing what?",
+    "options": [
+      "A) Running JavaScript",
+      "B) Downloading images",
+      "C) Reloading the entire page during navigation",
+      "D) Executing CSS animations"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 151,
+    "question": "Which backend paradigm relies heavily on pushing long-running processes to queues rather than blocking the main thread?",
+    "options": [
+      "A) Asynchronous Server-Side Programming",
+      "B) Synchronous Blocking",
+      "C) Server-Side Rendering (SSR)",
+      "D) Client-Side Hydration"
+    ],
+    "answer": 0
+  },
+  {
+    "id": 152,
+    "question": "JWT stands for:",
+    "options": [
+      "A) Java Web Toolkit",
+      "B) JavaScript Window Tag",
+      "C) JSON Web Token",
+      "D) Joint Web Transfer"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 153,
+    "question": "A CDN improves web performance primarily by:",
+    "options": [
+      "A) Encrypting passwords automatically",
+      "B) Caching static content on distributed edge servers physically closer to users",
+      "C) Writing better JavaScript code",
+      "D) Expanding database storage"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 154,
+    "question": "What is Cross-Site Scripting (XSS)?",
+    "options": [
+      "A) Writing code on multiple monitors",
+      "B) A vulnerability where an attacker injects malicious executable scripts into trusted web sites",
+      "C) Converting HTML directly to SQL",
+      "D) Translating CSS to JavaScript"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 155,
+    "question": "Which HTTP method is designed to apply partial modifications to a resource?",
+    "options": [
+      "A) POST",
+      "B) GET",
+      "C) PUT",
+      "D) PATCH"
+    ],
+    "answer": 3
+  },
+  {
+    "id": 156,
+    "question": "In Machine Learning, overfitting occurs when a model:",
+    "options": [
+      "A) Performs exceptionally well on both training and test data",
+      "B) Learns the training data too well, memorizing noise instead of underlying patterns",
+      "C) Cannot learn the training data at all",
+      "D) Requires too much RAM"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 157,
+    "question": "Gradient Descent is an optimization algorithm used to:",
+    "options": [
+      "A) Maximize error completely",
+      "B) Minimize the cost (loss) function by iteratively moving in the direction of steepest descent",
+      "C) Draw decision trees visually",
+      "D) Format data sets to CSVs"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 158,
+    "question": "Backpropagation in neural networks involves:",
+    "options": [
+      "A) Passing inputs forward repeatedly",
+      "B) Adjusting weights backward from the output layer to the input layer based on the calculated error",
+      "C) Reinstalling the Python environment",
+      "D) Moving data to the cloud automatically"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 159,
+    "question": "The Term Frequency-Inverse Document Frequency (TF-IDF) is heavily utilized in:",
+    "options": [
+      "A) Image rendering",
+      "B) Database indexing",
+      "C) Natural Language Processing for weighing term importance in text",
+      "D) Self-driving car navigation"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 160,
+    "question": "SVM stands for:",
+    "options": [
+      "A) Simple Virtual Machine",
+      "B) Support Vector Machine",
+      "C) Synthetic Variable Model",
+      "D) Standard Vector Math"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 161,
+    "question": "An algorithm that &quot;learns&quot; to play chess by being rewarded for capturing pieces and penalized for losing them is utilizing:",
+    "options": [
+      "A) Unsupervised Learning",
+      "B) Semi-Supervised Learning",
+      "C) Reinforcement Learning",
+      "D) Transfer Learning"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 162,
+    "question": "Deep Learning relies fundamentally on Neural Networks spanning:",
+    "options": [
+      "A) Exactly one hidden layer",
+      "B) No hidden layers",
+      "C) Multiple successive \"deep\" hidden layers",
+      "D) Output layers only"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 163,
+    "question": "In exploratory data analysis (EDA), a Histogram is best used to visualize:",
+    "options": [
+      "A) The geographic location of data",
+      "B) The frequency distribution of numerical data",
+      "C) The exact individual text values",
+      "D) Connections between web nodes"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 164,
+    "question": "Principal Component Analysis (PCA) is commonly used for:",
+    "options": [
+      "A) Database normalization",
+      "B) Dimensionality reduction to simplify complex datasets while retaining variance",
+      "C) Web page styling",
+      "D) Supervised classification exclusively"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 165,
+    "question": "Generative pre-trained transformers (GPT) primarily belong to which subfield of AI?",
+    "options": [
+      "A) Image Segmentation",
+      "B) Robotic Process Automation",
+      "C) Natural Language Generation / NLP",
+      "D) Operations Research"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 166,
+    "question": "A &quot;Zero-Day Vunerability&quot; is a software flaw that:",
+    "options": [
+      "A) Is not known to the vendor and has no patch available yet",
+      "B) Takes zero days to fix",
+      "C) Occurs only on Sundays",
+      "D) Erases all data instantly"
+    ],
+    "answer": 0
+  },
+  {
+    "id": 167,
+    "question": "A DDoS (Distributed Denial of Service) attack aims to:",
+    "options": [
+      "A) Steal passwords quietly",
+      "B) Overwhelm an online service with a flood of internet traffic, making it unavailable",
+      "C) Create backups of databases",
+      "D) Inject SQL code into forms"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 168,
+    "question": "Social Engineering primarily targets which vulnerability?",
+    "options": [
+      "A) Obsolete hardware",
+      "B) Operating system bugs",
+      "C) Human psychology and trust",
+      "D) Unencrypted WiFi passwords"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 169,
+    "question": "What is the fundamental goal of a Penetration Test (Pen Test)?",
+    "options": [
+      "A) To write security policies",
+      "B) To ethically simulate cyberattacks to find and fix existing vulnerabilities",
+      "C) To train employees on phishing",
+      "D) To arrest cybercriminals physically"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 170,
+    "question": "Which malware encrypts a victim's files and demands payment to restore access?",
+    "options": [
+      "A) Spyware",
+      "B) Adware",
+      "C) Ransomware",
+      "D) Trojan Horse"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 171,
+    "question": "A &quot;Foreign Key&quot; in a relational database table is:",
+    "options": [
+      "A) A key created in foreign countries",
+      "B) An attribute that provides a link to the primary key of another table",
+      "C) The main unique identifier of that specific table",
+      "D) Impossible to establish in SQL"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 172,
+    "question": "The command `SELECT * FROM Users WHERE age >= 18;` is an example of which SQL component?",
+    "options": [
+      "A) Data Definition Language (DDL)",
+      "B) Data Manipulation Language (DML)",
+      "C) Data Control Language (DCL)",
+      "D) Transaction Control Language (TCL)"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 173,
+    "question": "What is the main characteristic of a First Normal Form (1NF) table?",
+    "options": [
+      "A) It contains transitive dependencies",
+      "B) It has no foreign keys at all",
+      "C) It contains only atomic (indivisible) values",
+      "D) It is an empty table"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 174,
+    "question": "A &quot;Transaction&quot; in DBMS is guaranteed to be all-or-nothing by which ACID property?",
+    "options": [
+      "A) Isolation",
+      "B) Atomicity",
+      "C) Consistency",
+      "D) Durability"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 175,
+    "question": "Which feature accelerates the retrieval of data rows in a database table?",
+    "options": [
+      "A) Triggers",
+      "B) Cursors",
+      "C) Indexes",
+      "D) Views"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 176,
+    "question": "Which NoSQL database paradigm does Redis belong to?",
+    "options": [
+      "A) Document Store",
+      "B) Graph Database",
+      "C) Column-Family Store",
+      "D) Key-Value Store"
+    ],
+    "answer": 3
+  },
+  {
+    "id": 177,
+    "question": "A database &quot;Trigger&quot; is:",
+    "options": [
+      "A) An automated security alert mechanism",
+      "B) Procedural code that is automatically executed in response to certain events on a particular table",
+      "C) A specialized keyboard shortcut",
+      "D) A backup routine"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 178,
+    "question": "What does horizontal scaling (Sharding) in databases mean?",
+    "options": [
+      "A) Upgrading the server's CPU and RAM",
+      "B) Distributing tables and data across multiple independent servers",
+      "C) Adding more application developers",
+      "D) Renaming columns horizontally"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 179,
+    "question": "A conceptual view of data across multiple database tables formatted into a single virtual table is effectively a:",
+    "options": [
+      "A) Trigger",
+      "B) Cluster",
+      "C) View",
+      "D) Index"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 180,
+    "question": "The CAP theorem implies that a distributed data store can only simultaneously provide two out of three guarantees. They are Consistency, Partition Tolerance, and:",
+    "options": [
+      "A) Accuracy",
+      "B) Authorization",
+      "C) Availability",
+      "D) Autonomy"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 181,
+    "question": "In problem analysis, identifying the &quot;Root Cause&quot; involves:",
+    "options": [
+      "A) Fixing the easiest symptom visible",
+      "B) Repeatedly asking \"why\" until the fundamental, systemic reason for a problem is isolated",
+      "C) Guessing the outcome immediately",
+      "D) Changing programming languages"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 182,
+    "question": "A common heuristic used when navigating a maze is the &quot;Right-Hand Rule&quot;. This implies solving a problem by:",
+    "options": [
+      "A) Utilizing advanced machine learning models",
+      "B) Applying a simplified, consistent rule of thumb to guarantee eventual success",
+      "C) Guessing randomly at every turn",
+      "D) Calculating the exact distance of the entire maze beforehand"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 183,
+    "question": "To compute the 10th number in the Fibonacci sequence effectively without repeating calculations, an analytical programmer would use:",
+    "options": [
+      "A) Infinite randomization",
+      "B) Memoization (Dynamic Programming)",
+      "C) SQL JOINs",
+      "D) Brute force hardware processing"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 184,
+    "question": "When writing a sorting algorithm, ensuring that equal elements retain their relative relative input order defines the sort as:",
+    "options": [
+      "A) Unstable",
+      "B) Stable",
+      "C) In-place",
+      "D) Exponential"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 185,
+    "question": "Applying &quot;First Principles&quot; thinking to a complex software problem means:",
+    "options": [
+      "A) Following a tutorial verbatim",
+      "B) Boiling the problem down to its most fundamental truths and reasoning upward from there",
+      "C) Consulting senior engineers immediately",
+      "D) Re-using old legacy code arbitrarily"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 186,
+    "question": "During testing, checking values exactly at, just below, and just above defined limits is called:",
+    "options": [
+      "A) Performance Testing",
+      "B) Stress Testing",
+      "C) Boundary Value Analysis",
+      "D) Integration Analysis"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 187,
+    "question": "&quot;You have 9 identical-looking balls, but one is slightly heavier. With a balance scale, finding the heavier one in exactly 2 weighings&quot; requires which mindset?",
+    "options": [
+      "A) Greedy Algorithms",
+      "B) Linear Sequential Thinking",
+      "C) Divide and Conquer Analytical Reasoning",
+      "D) Object-Oriented Modeling"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 188,
+    "question": "In the phrase &quot;Garbage In, Garbage Out,&quot; the analytical principle highlighted is:",
+    "options": [
+      "A) Algorithms can fix bad data automatically",
+      "B) The quality of the output is strictly dependent on the quality of the input data",
+      "C) Programming requires garbage collection",
+      "D) Clean code executes slowly"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 189,
+    "question": "Which structural pattern represents an organization chart perfectly?",
+    "options": [
+      "A) Queue",
+      "B) Array",
+      "C) Map",
+      "D) Tree Data Structure"
+    ],
+    "answer": 3
+  },
+  {
+    "id": 190,
+    "question": "Using historical metrics and logs to determine exactly why a database server crashed yesterday is an example of:",
+    "options": [
+      "A) Predictive Analytics",
+      "B) Descriptive Analytics",
+      "C) Diagnostic Analytics",
+      "D) Prescriptive Analytics"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 191,
+    "question": "Developing a workaround that quickly solves an immediate bug while acknowledging it is not the perfect long-term architectural solution is known as a:",
+    "options": [
+      "A) Refactoring",
+      "B) Patch / Hotfix",
+      "C) System Rewrite",
+      "D) Paradigm Shift"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 192,
+    "question": "&quot;Occam's Razor&quot; in software architecture implies:",
+    "options": [
+      "A) Always use the most cutting-edge framework",
+      "B) The simplest solution involving the fewest assumptions is usually the correct one",
+      "C) Server racks must be physically isolated",
+      "D) Code must be obfuscated"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 193,
+    "question": "If a program works flawlessly for 999 inputs but fails on the 1000th due to memory exhaustion, this indicates a failure in analyzing:",
+    "options": [
+      "A) Syntax Constraints",
+      "B) Scalability and Resource Complexity",
+      "C) UI Aesthetics",
+      "D) Network Connectivity"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 194,
+    "question": "Synthesizing disparate log entries from multiple microservices to follow the exact path of a failed user transaction requires:",
+    "options": [
+      "A) Correlation and Pattern Recognition",
+      "B) Writing new CSS",
+      "C) Random sampling",
+      "D) Brute force decryption"
+    ],
+    "answer": 0
+  },
+  {
+    "id": 195,
+    "question": "What does the term &quot;Edge Case&quot; mean in technical problem-solving?",
+    "options": [
+      "A) A scenario that happens only at the extreme operating parameters of a system",
+      "B) Displaying content at the edge of mobile screens",
+      "C) Writing code on Edge servers only",
+      "D) The easiest use case to test"
+    ],
+    "answer": 0
+  },
+  {
+    "id": 196,
+    "question": "Brainstorming session outputs mapped visually into branches emanating from a central idea are referred to as:",
+    "options": [
+      "A) Gantt Charts",
+      "B) Mind Maps",
+      "C) Neural Networks",
+      "D) ER Diagrams"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 197,
+    "question": "Calculating the expected efficiency (O-notation) *before* writing any code prevents:",
+    "options": [
+      "A) Typos and syntax flags",
+      "B) Extensive late-stage architectural rewrites due to performance bottlenecks",
+      "C) Version control merge conflicts",
+      "D) Hardware upgrades"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 198,
+    "question": "Moving a repetitive daily manual data-entry task entirely to a background cron script illustrates:",
+    "options": [
+      "A) Creative problem solving via Automation",
+      "B) Deep Learning optimization",
+      "C) Front-End routing",
+      "D) Manual oversight"
+    ],
+    "answer": 0
+  },
+  {
+    "id": 199,
+    "question": "&quot;Rubber Duck Debugging&quot; involves:",
+    "options": [
+      "A) Putting an actual duck in the server room",
+      "B) Explaining your code line-by-line to an inanimate object, which analytically forces you to notice logical flaws yourself",
+      "C) Searching StackOverflow endlessly",
+      "D) Buying rubber toys for developers"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 200,
+    "question": "Ultimately, analytical problem-solving in Software Engineering depends least on knowing every library exactly, and most on:",
+    "options": [
+      "A) Understanding fundamental concepts and how to apply logic to formulate a solution",
+      "B) Memorizing syntax accurately",
+      "C) How fast you can type code",
+      "D) Creating flashy user interfaces"
+    ],
+    "answer": 0
   }
 ];
-
 const quizContainer = document.getElementById('quiz-container');
 
 function createQuiz() {
@@ -1172,13 +2292,6 @@ function createQuiz() {
         });
         
         qDiv.appendChild(optionsDiv);
-        
-        const feedbackDiv = document.createElement('div');
-        feedbackDiv.className = 'feedback';
-        feedbackDiv.id = `feedback-${index}`;
-        feedbackDiv.style.display = 'none';
-        qDiv.appendChild(feedbackDiv);
-        
         quizContainer.appendChild(qDiv);
     });
 }
@@ -1213,22 +2326,15 @@ function submitQuiz() {
             }
         }
         
-        // Hide the feedback div since we are coloring labels instead
-        const feedbackDiv = document.getElementById(`feedback-${index}`);
-        if(feedbackDiv) feedbackDiv.style.display = 'none';
-        
-        // Disable all radio buttons
         const radios = document.querySelectorAll(`input[name="question${index}"]`);
         radios.forEach(r => r.disabled = true);
     });
     
-    // Hide the submit button
     document.querySelector('.submit-btn').style.display = 'none';
     
     // Move results div to the top
     const resultsDiv = document.getElementById('results');
     const container = document.querySelector('.container');
-    const quizContainer = document.getElementById('quiz-container');
     container.insertBefore(resultsDiv, quizContainer);
     
     resultsDiv.style.display = 'block';
@@ -1243,7 +2349,6 @@ function submitQuiz() {
     else if (percentage >= 40) scoreMsg.innerText = "You passed, but there's room for improvement in some areas.";
     else scoreMsg.innerText = "Keep studying! Review the areas where you struggled.";
     
-    // Quick scroll to top to see results
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
