@@ -32,11 +32,11 @@ Simply double-click the `hec_mcq_test.html` file to open it in any modern web br
 ## 2. Academy Curriculum & Study Plans
 Included in this repository are meticulously crafted, day-by-day (8-10 week) study plans for software engineering and infrastructure domains:
 
-1. **Python Programming (`python_course_plan.md`)**: From variables to OOP to APIs and file handling.
-2. **Django & DRF (`django_drf_course_plan.md`)**: From MVC web basics to advanced JWT authenticated REST APIs.
-3. **DevOps Engineering (`devops_course_plan.md`)**: Covering Linux, Git, Docker, CI/CD, AWS, Terraform, and Kubernetes.
-4. **Linux for DevOps Guide (`linux_for_devops_guide.md`)**: A massive hands-on tutorial and practice lab for server management.
-5. **DevOps Roadmap (`devops_roadmap.md`)**: A zero-to-hero guide on the modern DevOps tech stack.
+1. **Python Programming : From variables to OOP to APIs and file handling.
+2. **Django & DRF : From MVC web basics to advanced JWT authenticated REST APIs.
+3. **DevOps Engineering : Covering Linux, Git, Docker, CI/CD, AWS, Terraform, and Kubernetes.
+4. **Linux for DevOps Guide : A massive hands-on tutorial and practice lab for server management.
+5. **DevOps Roadmap : A zero-to-hero guide on the modern DevOps tech stack.
 
 ---
 
