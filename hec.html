@@ -10944,6 +10944,35 @@ function createQuiz() {
             radio.name = `question${index}`;
             radio.value = optIndex;
             
+            radio.addEventListener('change', function() {
+                const userAns = parseInt(this.value);
+                const correctAns = q.answer;
+                
+                const allRadios = document.querySelectorAll(`input[name="question${index}"]`);
+                allRadios.forEach(r => r.disabled = true);
+                
+                if (userAns === correctAns) {
+                    label.style.backgroundColor = '#d4edda';
+                    label.style.borderColor = '#c3e6cb';
+                    label.style.color = '#155724';
+                    label.style.fontWeight = 'bold';
+                } else {
+                    label.style.backgroundColor = '#f8d7da';
+                    label.style.borderColor = '#f5c6cb';
+                    label.style.color = '#721c24';
+                    label.style.textDecoration = 'line-through';
+                    
+                    const correctRadio = document.querySelector(`input[name="question${index}"][value="${correctAns}"]`);
+                    if (correctRadio) {
+                        const correctLabel = correctRadio.parentElement;
+                        correctLabel.style.backgroundColor = '#d4edda';
+                        correctLabel.style.borderColor = '#c3e6cb';
+                        correctLabel.style.color = '#155724';
+                        correctLabel.style.fontWeight = 'bold';
+                    }
+                }
+            });
+            
             label.appendChild(radio);
             label.appendChild(document.createTextNode(opt));
             optionsDiv.appendChild(label);
