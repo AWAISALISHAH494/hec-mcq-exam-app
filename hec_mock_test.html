@@ -10931,7 +10931,7 @@ function createQuiz() {
         
         const qTitle = document.createElement('div');
         qTitle.className = 'q-title';
-        qTitle.innerText = `${index + 1}. ${q.question}`;
+        qTitle.innerHTML = `${index + 1}. ${q.question}`;
         qDiv.appendChild(qTitle);
         
         const optionsDiv = document.createElement('div');
@@ -10974,7 +10974,9 @@ function createQuiz() {
             });
             
             label.appendChild(radio);
-            label.appendChild(document.createTextNode(opt));
+            const optSpan = document.createElement('span');
+            optSpan.innerHTML = opt;
+            label.appendChild(optSpan);
             optionsDiv.appendChild(label);
         });
         
