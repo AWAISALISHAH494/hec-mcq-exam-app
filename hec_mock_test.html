@@ -72,7 +72,8 @@
   .question-card { background: var(--card-bg); border-radius: 16px; padding: 30px; margin-bottom: 25px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px rgba(0,0,0,0.02); transition: transform 0.3s, box-shadow 0.3s; }
   .question-card:hover { transform: translateY(-3px); box-shadow: 0 12px 20px rgba(0,0,0,0.06); }
   
-  .q-badge { display: inline-block; background: #e0e7ff; color: var(--primary); padding: 4px 10px; border-radius: 20px; font-size: 0.75em; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+  /* q-badge styling — visibility is controlled by .show-badges on body (see above) */
+  .q-badge { background: #e0e7ff; color: var(--primary); padding: 4px 10px; border-radius: 20px; font-size: 0.75em; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
   .q-title { font-size: 1.2em; font-weight: 600; line-height: 1.5; margin-bottom: 20px; color: #0f172a; }
   
   .options label { display: flex; align-items: center; padding: 15px 20px; margin-bottom: 12px; border-radius: 10px; background: #f8fafc; border: 2px solid transparent; cursor: pointer; transition: all 0.2s; font-weight: 500; }
@@ -253,11 +254,7 @@
     <div class="content-header">
         <h1 id="current-subject-title">All Subjects</h1>
     </div>
-    
-    <div style="background:#e0e7ff; border-left: 4px solid var(--primary); padding: 15px 20px; border-radius: 8px; margin-bottom: 30px; font-size: 15px; color: #3730a3; font-weight: 500;">
-        <i class="fa-solid fa-graduation-cap"></i> <strong>Interactive Mode Active:</strong> Clicking an option instantly evaluates your answer as Correct or Wrong. Your progress is continuously tracked on the right panel!
-    </div>
-    
+
     <div id="quiz-container">
         <!-- JS dynamically renders questions here -->
     </div>
