@@ -58,6 +58,13 @@
   .stat-correct { color: var(--correct-border); }
   .stat-wrong { color: var(--wrong-border); }
 
+  /* compact row: mobile-only — hidden on desktop */
+  .stats-compact-row { display: none; }
+
+  /* subject badge: only visible when body has .show-badges class */
+  .q-badge { display: none; }
+  body.show-badges .q-badge { display: inline-block; }
+
   /* Main Content Elements */
   .content-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
   .content-header h1 { margin: 0; font-size: 2.2em; font-weight: 800; color: var(--text-main); }
@@ -219,7 +226,9 @@
 
   /* SMALL PHONES ≤ 650px */
   @media (max-width: 650px) {
-    .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 6px; }
+    /* Hide big stat cards — compact row replaces them */
+    .stats-grid { display: none !important; }
+    .stats-compact-row { display: flex !important; flex-wrap: wrap; gap: 6px; padding: 6px 12px 10px 12px; }
     .question-card { padding: 18px 14px; margin-bottom: 14px; }
     .q-title { font-size: 1.05em; }
     .options label { padding: 11px 14px; font-size: 0.93em; }
@@ -10110,7 +10119,8 @@ function initSystem() {
     // 2. Render all questions silently to DOM
     renderQuestions();
     
-    // 3. Initiate first update
+    // 3. Initiate first update — All Subjects is default so show badges
+    document.body.classList.add('show-badges');
     updateStatsDisplay();
 }
 
@@ -10121,6 +10131,13 @@ function filterSubject(sub, element) {
     // Update active class on sidebar
     document.querySelectorAll('.subject-btn').forEach(b => b.classList.remove('active'));
     if(element) element.classList.add('active');
+    
+    // Toggle subject badge visibility (only show badges in All Subjects mode)
+    if (sub === "All Subjects") {
+        document.body.classList.add('show-badges');
+    } else {
+        document.body.classList.remove('show-badges');
+    }
     
     // Set Titles
     document.getElementById('current-subject-title').innerText = sub;
