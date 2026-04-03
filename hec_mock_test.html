@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HEC Mock Exam System</title>
+<title>Premium HEC Mock Exam System</title>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
@@ -127,6 +127,20 @@
       .q-title { font-size: 1.1em; }
       .options label { padding: 12px 15px; font-size: 0.95em; line-height: 1.4; }
       .options input[type="radio"] { width: 20px; height: 20px; margin-right: 10px; flex-shrink: 0; }
+  }
+  
+  /* Smooth UX Compact Header State for scrolling on Mobile */
+  .brand-header, .stats-header, #subject-list, .subject-btn, .stats-grid, .stat-card, .stat-value, .stat-label { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); overflow: hidden; transform-origin: top; }
+  @media (max-width: 1200px) {
+      body.compact-mode .brand-header { height: 0; padding-top: 0; padding-bottom: 0; opacity: 0; margin: 0; border: none; }
+      body.compact-mode .stats-header { height: 0; padding-top: 0; padding-bottom: 0; opacity: 0; margin: 0; border: none; }
+      body.compact-mode #subject-list { padding-top: 5px; padding-bottom: 5px; border-top: none; }
+      body.compact-mode .subject-btn { padding: 5px 12px; font-size: 0.85em; border-radius: 20px; background: rgba(255,255,255,0.05); }
+      body.compact-mode .subject-btn.active { background: var(--primary); }
+      body.compact-mode .stats-grid { padding-top: 8px; padding-bottom: 8px; gap: 4px; }
+      body.compact-mode .stat-card { padding: 2px 5px; border-radius: 6px; background: transparent; border: 1px solid #e2e8f0; display: flex; flex-direction: column; justify-content: center; }
+      body.compact-mode .stat-value { font-size: 0.95em; margin-bottom: 0; }
+      body.compact-mode .stat-label { font-size: 0.6em; letter-spacing: 0; }
   }
 </style>
 </head>
@@ -10128,6 +10142,17 @@ function renderQuestions() {
         quizContainer.appendChild(qDiv);
     });
 }
+
+// Dynamic Scroll Shrink Engine
+document.querySelector('.main-content').addEventListener('scroll', function() {
+    if (window.innerWidth <= 1200) {
+        if (this.scrollTop > 50) {
+            document.body.classList.add('compact-mode');
+        } else {
+            document.body.classList.remove('compact-mode');
+        }
+    }
+});
 
 // Execute Application
 initSystem();
